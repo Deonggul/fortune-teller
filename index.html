@@ -141,7 +141,8 @@ body.rmode .cover-card{display:block;position:relative;background:radial-gradien
 .cover-card .cv-tagline .cv-dot{width:9px;height:9px;border-radius:50%;background:var(--accent);flex:none;}
 .cover-card .cv-tagsub{font-size:clamp(13px,2.6vw,15px);font-weight:500;color:#8A6B49;line-height:1.5;margin-bottom:18px;}
 .cover-card .cv-saju{display:flex;flex-wrap:wrap;gap:7px;}
-.cover-card .cv-saju b{display:inline-block;background:#fff;border-radius:11px;padding:7px 12px;color:#4A3B2A;font-weight:800;font-size:15px;}
+.cover-card .cv-saju b{display:inline-block;text-align:center;background:#fff;border-radius:12px;padding:6px 12px;color:#4A3B2A;font-weight:800;font-size:15px;line-height:1.2;}
+.cover-card .cv-saju b .cv-gz-ko{display:block;font-size:11px;font-weight:600;color:#9A7A55;margin-top:2px;letter-spacing:0;}
 .cover-card .cv-meta{margin-top:16px;padding-top:14px;border-top:1px solid rgba(180,130,70,.22);font-size:12px;color:#A88A64;line-height:1.7;}
 
 
@@ -638,20 +639,20 @@ const DAY_IMG={
   甲:'우뚝 선 큰 나무', 乙:'여린 화초',
   丙:'한낮의 태양',     丁:'작은 촛불',
   戊:'거대한 산',       己:'기름진 밭',
-  庚:'단단한 무쇠',     辛:'벼려진 보석',
+  庚:'단단한 무쇠',     辛:'잘 다듬어진 보석',
   壬:'드넓은 강',       癸:'맑은 빗물'
 };
 const DAY_ROLE={
   甲:'큰 그림을 그리며 앞장서는 개척자', 乙:'어디서든 살아남는 끈질긴 생활의 달인',
   丙:'주변을 환하게 밝히는 분위기 메이커', 丁:'곁을 따뜻하게 데우는 세심한 조력자',
   戊:'묵묵히 자기 성(城)을 쌓아 올리는 우직한 건축가', 己:'사람과 일을 길러내는 너른 품의 농부',
-  庚:'불의를 못 참는 결단력의 승부사', 辛:'디테일을 벼리는 완벽주의 장인',
+  庚:'불의를 못 참는 결단력의 승부사', 辛:'디테일을 끝까지 다듬는 완벽주의 장인',
   壬:'멈추지 않고 흐르는 큰 그림의 전략가', 癸:'촉촉이 스며드는 섬세한 감성가'
 };
 /* 결핍(용신) 오행 → 비유에서 \'무엇이 그리운가\' (한 줄에 맞게 짧게) */
 const LACK_IMG={
   목:'푸른 숲이 그리운', 화:'모닥불이 절실한',
-  토:'디딜 땅이 아쉬운', 금:'벼릴 칼이 그리운',
+  토:'디딜 땅이 아쉬운', 금:'나를 다듬어 줄 칼이 그리운',
   수:'단비를 기다리는'
 };
 /* 배우자궁(일지 십성) → 관계 스타일 / 이상형 */
@@ -1427,8 +1428,8 @@ function doReading(){
     const yv=+document.getElementById('yy').value, mv=+document.getElementById('mm').value, dv=+document.getElementById('dd').value;
     const noT=document.getElementById('noTime').checked;
     const pad=n=>String(n).padStart(2,'0');
-    document.getElementById('cvSub').textContent=calLabel+' '+yv+'.'+pad(mv)+'.'+pad(dv)+' · '+dayGan+elHanja+' 일간';
-    document.getElementById('cvSaju').innerHTML=gz.map(g=>'<b>'+(g==='—'?'—':g)+'</b>').join('');
+    document.getElementById('cvSub').textContent=calLabel+' '+yv+'.'+pad(mv)+'.'+pad(dv)+' · '+dayGan+elHanja+'('+koread(dayGan)+koread(elHanja)+') 일간';
+    document.getElementById('cvSaju').innerHTML=gz.map(function(g){ if(g==='—')return '<b>—</b>'; var ko=[...g].map(koread).join(''); return '<b>'+g+'<span class="cv-gz-ko">'+ko+'</span></b>'; }).join('');
     let metaStr=(hjCv?hjCv+' · ':'')+'사주팔자 '+gz.map(g=>g==='—'?'—':g).join(' ')+' (시·일·월·연)';
     if(!noT){ metaStr+=' · '+pad(+document.getElementById('hh').value||0)+':'+pad(+document.getElementById('mi').value||0); }
     document.getElementById('cvMeta').textContent=metaStr;

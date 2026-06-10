@@ -361,6 +361,13 @@ body.rmode .scroll-top{display:inline-flex;}
       <div id="sajuBox"></div>
       <p style="margin-top:14px;font-size:14px;color:var(--ink-3)">일간(나): <span class="day-master" id="dm"></span></p>
       <div class="note" id="tsNote" style="display:none"></div>
+      <details class="note" style="margin-top:10px">
+        <summary style="cursor:pointer;font-weight:700;color:var(--ink-3);list-style:none">다른 곳과 사주(특히 시주)가 다르게 나오나요?</summary>
+        <div style="margin-top:8px;line-height:1.7">대부분 <b>틀린 게 아니라 관법(계산 기준) 차이</b>예요. 흔한 두 가지는:<br>
+        <b>① 진태양시 보정</b> — 한국은 동경 135° 표준시를 쓰지만 실제 위치는 약 127°E라, 시계 시각과 실제 태양 시각이 <b>약 30분</b> 차이 나요. 이 보정을 켜고 끄는지(위 입력의 <b>진태양시</b> 체크박스)에 따라 경계 시각의 <b>시주</b>가 한 칸 달라질 수 있어요. 다른 사이트와 맞춰 보려면 그 사이트와 같은 설정으로 두고 비교하세요.<br>
+        <b>② 자시(밤 11시~새벽 1시) 날짜 관법</b> — 이 시간대 출생은 \'조자시/야자시\' 처리 방식에 따라 <b>일주·시주</b>가 사이트마다 달라집니다(이 도구는 23시 이후를 당일로 보는 기본 관법).<br>
+        둘 다 명리학에서 인정되는 학파 차이라, 어느 한쪽이 절대적으로 옳은 건 아니에요.</div>
+      </details>
     </div>
 
     <div class="card rcard" id="s-ohaeng" data-nav="오행 분포">
@@ -382,7 +389,7 @@ body.rmode .scroll-top{display:inline-flex;}
     <div class="card rcard" id="hanjaCard" data-nav="한자 뜻풀이" style="display:none">
       <h2>한자 뜻풀이 (字義)</h2>
       <div id="hanjaBody"></div>
-      <div class="note">훈음·뜻은 상용 인명 한자 사전에서 가져오며, 자원오행은 부수·자의 기준입니다(작명 학파에 따라 일부 다를 수 있음). 사전에 없는 글자는 「—」로 표시됩니다.</div>
+      <div class="note"><b>자원오행</b>은 한자의 <b>부수·뜻</b>으로 보는 기운이라, 이름 소리(초성)로 보는 <b>발음오행</b>과 다를 수 있어요(둘은 다른 잣대예요). 예) 洞은 소리로는 화(火)지만 삼수변(氵)이라 자원으로는 수(水)입니다. 훈음·뜻은 상용 인명 한자 사전 기준이며(작명 학파에 따라 일부 다를 수 있음), 사전에 없는 글자는 「—」로 표시됩니다.</div>
     </div>
 
     <div class="card rcard" id="suriCard" data-nav="수리(사격)">
@@ -1523,7 +1530,9 @@ function doReading(){
     if(es.every(o=>o.e) && !anyGeuk) msg.push('초성 오행이 막힘 없이 <b>상생(生)</b>으로 이어집니다.');
     if(anyGeuk) msg.push('상극(剋) 구간이 있어 흐름이 한 번 끊깁니다.');
     if(es.some(o=>o.e==='화') && cnt['화']===0) msg.push('이름의 <b>화(火)</b>가 사주에 없는 화를 보완해 줍니다.');
-    balnote.innerHTML=msg.join(' ')||'초성 오행의 흐름을 살펴보세요.';
+    let balMsg=(msg.join(' ')||'초성 오행의 흐름을 살펴보세요.');
+    balMsg+='<br><br><span style="color:var(--ink-4)">※ <b>발음오행</b>은 이름의 <b>소리(초성)</b>로 보는 기운이라, 한자의 부수·뜻으로 보는 <b>자원오행</b>(아래 「한자 뜻풀이」)과 글자마다 다를 수 있어요. 둘 다 보는 게 정상이에요. 예) \'동\'은 소리로는 화(火, ㄷ 계열)지만, 한자 洞은 삼수변(氵)이라 자원으로는 수(水)예요.</span>';
+    balnote.innerHTML=balMsg;
   }else{
     /* 한글 이름이 없으면 발음오행 카드 자체를 숨김 */
     if(sNameCard) sNameCard.style.display='none';

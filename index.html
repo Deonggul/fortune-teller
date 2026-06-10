@@ -32,11 +32,11 @@ body{font-family:var(--font);color:var(--ink-2);background:var(--surface-1);line
 .wrap{max-width:760px;margin:0 auto;}
 h1{font-size:28px;font-weight:700;color:var(--ink);letter-spacing:-0.02em;margin-bottom:6px;}
 .sub{font-size:14px;color:var(--ink-4);margin-bottom:28px;}
-.card{background:var(--surface);border:1px solid var(--line-soft);border-radius:14px;padding:24px;margin-bottom:20px;}
+.card{background:var(--surface);border:1px solid var(--line-soft);border-radius:20px;padding:24px;margin-bottom:20px;}
 h2{font-size:18px;font-weight:700;color:var(--ink);margin-bottom:16px;}
 label{display:block;font-size:12px;font-weight:600;color:var(--ink-4);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;}
-input,select{width:100%;padding:11px 12px;border:1px solid var(--line-soft);border-radius:9px;font-family:var(--font);font-size:15px;color:var(--ink);background:var(--surface);}
-input:focus,select:focus{outline:2px solid var(--blue);outline-offset:0;border-color:transparent;}
+input,select{width:100%;padding:11px 13px;border:1px solid var(--line-soft);border-radius:12px;font-family:var(--font);font-size:15px;color:var(--ink);background:var(--surface);}
+input:focus,select:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent;}
 .grid{display:grid;gap:14px;}
 .g2{grid-template-columns:1fr 1fr;}
 .g3{grid-template-columns:1fr 1fr 1fr;}
@@ -44,9 +44,9 @@ input:focus,select:focus{outline:2px solid var(--blue);outline-offset:0;border-c
 .row{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--ink-3);margin-top:6px;}
 .row input[type=checkbox]{width:auto;}
 .hint{font-size:12px;color:var(--ink-5);margin-top:6px;}
-.btn{width:100%;margin-top:20px;padding:14px;background:var(--ink);color:#fff;border:none;border-radius:10px;
-  font-family:var(--font);font-size:16px;font-weight:700;cursor:pointer;}
-.btn:hover{background:var(--ink-2);}
+.btn{width:100%;margin-top:20px;padding:15px;background:var(--accent);color:#fff;border:none;border-radius:999px;
+  font-family:var(--font);font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 6px 18px rgba(224,98,46,.28);}
+.btn:hover{background:var(--accent-ink);}
 .btn:active{transform:scale(.99);}
 #result{display:none;}
 .err{color:var(--red);font-size:14px;margin-top:12px;}
@@ -104,7 +104,7 @@ body.rmode .back-btn:hover{color:var(--ink);border-color:var(--ink-4);}
 .easy p{font-size:13.5px;color:#3F5E4B;line-height:1.72;margin:0;}
 .easy b{color:#234A37;font-weight:700;}
 /* 인라인 용어 각주(툴팁) */
-.gl{position:relative;border-bottom:1px dotted var(--blue);cursor:help;}
+.gl{position:relative;border-bottom:1px dotted var(--accent);cursor:help;}
 .gl .gl-pop{position:absolute;left:0;bottom:calc(100% + 8px);z-index:60;width:min(264px,74vw);background:var(--ink);color:#fff;font-size:12.5px;font-weight:400;line-height:1.55;letter-spacing:0;text-align:left;padding:10px 12px;border-radius:9px;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;visibility:hidden;transition:opacity .12s;pointer-events:none;white-space:normal;}
 .gl .gl-pop::after{content:"";position:absolute;left:16px;top:100%;border:6px solid transparent;border-top-color:var(--ink);}
 .gl:hover .gl-pop,.gl:focus .gl-pop,.gl:focus-within .gl-pop{opacity:1;visibility:visible;}
@@ -130,16 +130,19 @@ body.rmode .rterm-sum{font-size:13px!important;color:var(--ink-4)!important;font
 
 /* 커버 */
 .cover-card{display:none;}
-body.rmode .cover-card{display:block;position:relative;background:radial-gradient(ellipse 80% 65% at 82% -10%,#FFD3A6,transparent 60%),radial-gradient(ellipse 70% 60% at 10% 110%,#FFE0CC,transparent 60%),#FFE7D1;color:#5A4632;border-radius:26px;padding:34px 32px;margin-bottom:44px;overflow:hidden;border:1px solid var(--accent-line);}
-.cover-card .cv-cat{position:absolute;top:22px;right:24px;width:84px;height:84px;}
-.cover-card .cv-cat svg{width:100%;height:100%;display:block;}
+body.rmode .cover-card{display:block;position:relative;background:radial-gradient(ellipse 80% 65% at 82% -10%,#FFD3A6,transparent 60%),radial-gradient(ellipse 70% 60% at 10% 110%,#FFE0CC,transparent 60%),#FFE7D1;color:#5A4632;border-radius:26px;padding:32px 30px;margin-bottom:32px;overflow:hidden;border:1px solid var(--accent-line);}
 .cover-card .cv-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);font-weight:800;margin-bottom:12px;}
-.cover-card .cv-title{font-size:clamp(25px,5.2vw,34px);font-weight:800;line-height:1.22;letter-spacing:-0.01em;margin-bottom:14px;color:#3A2D1E;}
-.cover-card .cv-tagline{font-size:clamp(18px,4vw,24px);font-weight:800;line-height:1.4;color:var(--accent-ink);margin-bottom:16px;}
-.cover-card .cv-tagline .cv-tag-sub{display:block;font-size:clamp(13px,2.6vw,15px);font-weight:500;color:#8A6B49;margin-top:9px;line-height:1.5;}
-.cover-card .cv-saju{font-size:14px;color:#6E5536;font-variant-numeric:tabular-nums;line-height:1.9;padding-top:18px;border-top:1px solid rgba(180,130,70,.25);}
-.cover-card .cv-saju b{display:inline-block;background:#fff;border-radius:9px;padding:3px 9px;margin:2px 1px;color:#4A3B2A;font-weight:800;}
-.cover-card .cv-meta{margin-top:18px;padding-top:16px;border-top:1px solid rgba(180,130,70,.25);font-size:12.5px;color:#9A7A55;line-height:1.7;}
+.cover-card .cv-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+.cover-card .cv-cat{flex:none;width:74px;height:74px;}
+.cover-card .cv-cat svg{width:100%;height:100%;display:block;}
+.cover-card .cv-title{font-size:clamp(23px,5vw,32px);font-weight:800;line-height:1.18;letter-spacing:-0.01em;color:#3A2D1E;}
+.cover-card .cv-sub{font-size:13px;color:#9A7A55;font-weight:600;margin-top:5px;}
+.cover-card .cv-tagline{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1.5px solid var(--accent-line);border-radius:999px;padding:9px 17px;font-size:clamp(16px,3.6vw,20px);font-weight:800;color:var(--accent-ink);margin-bottom:11px;}
+.cover-card .cv-tagline .cv-dot{width:9px;height:9px;border-radius:50%;background:var(--accent);flex:none;}
+.cover-card .cv-tagsub{font-size:clamp(13px,2.6vw,15px);font-weight:500;color:#8A6B49;line-height:1.5;margin-bottom:18px;}
+.cover-card .cv-saju{display:flex;flex-wrap:wrap;gap:7px;}
+.cover-card .cv-saju b{display:inline-block;background:#fff;border-radius:11px;padding:7px 12px;color:#4A3B2A;font-weight:800;font-size:15px;}
+.cover-card .cv-meta{margin-top:16px;padding-top:14px;border-top:1px solid rgba(180,130,70,.22);font-size:12px;color:#A88A64;line-height:1.7;}
 
 
 /* 사이드 네비 (섹션 메뉴) */
@@ -217,8 +220,11 @@ body.rmode .scroll-top{display:inline-flex;}
 </div>
 <div class="wrap">
   <div class="intro">
-    <h1>Deonggul Fortune Teller</h1>
-    <p class="sub">사주 · 성명학 풀이 — 정보를 입력하면 브라우저 안에서 계산합니다. 입력값은 서버로 전송되지 않습니다.</p>
+    <div style="display:flex;align-items:center;gap:13px;">
+      <span style="flex:none;width:52px;height:52px;border-radius:50%;background:var(--accent-soft);display:inline-flex;align-items:center;justify-content:center;" aria-hidden="true"><svg viewBox="0 0 32 32" width="40" height="40"><polygon points="10,7 6,15 14,14" fill="#F7B267"/><polygon points="22,7 26,15 18,14" fill="#F7B267"/><polygon points="10.5,9 8,14 13,13.5" fill="#F4A6A0"/><polygon points="21.5,9 24,14 19,13.5" fill="#F4A6A0"/><circle cx="16" cy="17" r="9.5" fill="#F7B267"/><path d="M12 17 q2 2.2 4 0" stroke="#5A3E2B" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M16 17 q2 2.2 4 0" stroke="#5A3E2B" stroke-width="1.6" fill="none" stroke-linecap="round"/><ellipse cx="11.5" cy="20.3" rx="2" ry="1.3" fill="#F58E86" opacity=".55"/><ellipse cx="20.5" cy="20.3" rx="2" ry="1.3" fill="#F58E86" opacity=".55"/><path d="M14.8 20 q1.2 1.1 2.4 0" stroke="#5A3E2B" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg></span>
+      <h1>Deonggul Fortune Teller</h1>
+    </div>
+    <p class="sub">사주 · 성명학을 귀여운 친구들이 쉽게 풀어 드려요. 정보를 입력하면 브라우저 안에서만 계산하고, 입력값은 서버로 전송되지 않습니다.</p>
   </div>
 
   <!-- ===== 입력 ===== -->
@@ -337,10 +343,16 @@ body.rmode .scroll-top{display:inline-flex;}
   <div id="result">
     <button class="back-btn" id="backBtn" type="button">← 다시 입력하기</button>
     <div class="cover-card" id="coverCard">
-      <div class="cv-cat" aria-hidden="true"><svg viewBox="0 0 80 80"><circle cx="16" cy="13" r="2.2" fill="#E58E4E"/><circle cx="66" cy="22" r="1.7" fill="#7C6CF0"/><circle cx="70" cy="42" r="2.1" fill="#F08A6B"/><polygon points="40,23 33,38 47,38" fill="#7C6CF0"/><polygon points="40,23 35,38 45,38" fill="#9B8DF5"/><circle cx="40" cy="25" r="2" fill="#FFE36B"/><polygon points="25,30 20,42 34,40" fill="#F7B267"/><polygon points="55,30 60,42 46,40" fill="#F7B267"/><polygon points="26,33 23,40 31,39" fill="#F4A6A0"/><polygon points="54,33 57,40 49,39" fill="#F4A6A0"/><circle cx="40" cy="51" r="20" fill="#F7B267"/><path d="M30 50 q5 5 10 0" stroke="#5A3E2B" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M40 50 q5 5 10 0" stroke="#5A3E2B" stroke-width="2.6" fill="none" stroke-linecap="round"/><ellipse cx="31" cy="58" rx="4" ry="2.6" fill="#F58E86" opacity=".55"/><ellipse cx="49" cy="58" rx="4" ry="2.6" fill="#F58E86" opacity=".55"/><path d="M37 57 q3 3 6 0" stroke="#5A3E2B" stroke-width="2" fill="none" stroke-linecap="round"/><line x1="14" y1="51" x2="24" y2="52" stroke="#C8895B" stroke-width="1.4" stroke-linecap="round"/><line x1="14" y1="56" x2="24" y2="56" stroke="#C8895B" stroke-width="1.4" stroke-linecap="round"/><line x1="66" y1="51" x2="56" y2="52" stroke="#C8895B" stroke-width="1.4" stroke-linecap="round"/><line x1="66" y1="56" x2="56" y2="56" stroke="#C8895B" stroke-width="1.4" stroke-linecap="round"/></svg></div>
-      <div class="cv-eyebrow">Saju &amp; Name Analysis</div>
-      <div class="cv-title" id="cvTitle">사주 · 성명 분석</div>
+      <div class="cv-eyebrow">Saju &amp; Name</div>
+      <div class="cv-head">
+        <div class="cv-cat" aria-hidden="true"><svg viewBox="0 0 80 80"><circle cx="16" cy="13" r="2.2" fill="#E58E4E"/><circle cx="66" cy="22" r="1.7" fill="#7C6CF0"/><circle cx="70" cy="42" r="2.1" fill="#F08A6B"/><polygon points="40,23 33,38 47,38" fill="#7C6CF0"/><polygon points="40,23 35,38 45,38" fill="#9B8DF5"/><circle cx="40" cy="25" r="2" fill="#FFE36B"/><polygon points="25,30 20,42 34,40" fill="#F7B267"/><polygon points="55,30 60,42 46,40" fill="#F7B267"/><polygon points="26,33 23,40 31,39" fill="#F4A6A0"/><polygon points="54,33 57,40 49,39" fill="#F4A6A0"/><circle cx="40" cy="51" r="20" fill="#F7B267"/><path d="M30 50 q5 5 10 0" stroke="#5A3E2B" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M40 50 q5 5 10 0" stroke="#5A3E2B" stroke-width="2.6" fill="none" stroke-linecap="round"/><ellipse cx="31" cy="58" rx="4" ry="2.6" fill="#F58E86" opacity=".55"/><ellipse cx="49" cy="58" rx="4" ry="2.6" fill="#F58E86" opacity=".55"/><path d="M37 57 q3 3 6 0" stroke="#5A3E2B" stroke-width="2" fill="none" stroke-linecap="round"/><line x1="14" y1="51" x2="24" y2="52" stroke="#C8895B" stroke-width="1.4" stroke-linecap="round"/><line x1="14" y1="56" x2="24" y2="56" stroke="#C8895B" stroke-width="1.4" stroke-linecap="round"/><line x1="66" y1="51" x2="56" y2="52" stroke="#C8895B" stroke-width="1.4" stroke-linecap="round"/><line x1="66" y1="56" x2="56" y2="56" stroke="#C8895B" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+        <div class="cv-headtext">
+          <div class="cv-title" id="cvTitle">사주 · 성명 분석</div>
+          <div class="cv-sub" id="cvSub"></div>
+        </div>
+      </div>
       <div class="cv-tagline" id="cvTagline"></div>
+      <div class="cv-tagsub" id="cvTagSub"></div>
       <div class="cv-saju" id="cvSaju"></div>
       <div class="cv-meta" id="cvMeta"></div>
     </div>
@@ -1115,9 +1127,9 @@ function buildInterp(pillars, dayGan, cnt, ec){
     dyHtml+='<div style="display:flex;gap:6px;overflow-x:auto;margin:12px 0 6px;padding-bottom:6px">'+rows.map((r,i)=>{
       const boost=(lacks.length&&(GAN_E[r.gz[0]]===lacks[0]||ZHI_E[r.gz[1]]===lacks[0]));
       const isCur=(i===cur);
-      const bg=isCur?'#0F80F6':(boost?'rgba(1,160,88,0.12)':'var(--surface-1)');
+      const bg=isCur?'#FF7A45':(boost?'rgba(1,160,88,0.12)':'var(--surface-1)');
       const fg=isCur?'#fff':'var(--ink-2)';
-      const bd=isCur?'#0F80F6':(boost?'#01A058':'var(--line-soft)');
+      const bd=isCur?'#FF7A45':(boost?'#01A058':'var(--line-soft)');
       return '<div style="flex:0 0 auto;min-width:54px;text-align:center;border:1.5px solid '+bd+';border-radius:9px;padding:8px 6px;background:'+bg+';color:'+fg+'">'
         +'<div style="font-size:11px;font-weight:600;opacity:.85;font-feature-settings:\'tnum\'">'+r.age+'세</div>'
         +'<div style="font-size:15px;font-weight:700;margin:2px 0">'+r.gz+'</div>'
@@ -1311,7 +1323,7 @@ function buildInterp(pillars, dayGan, cnt, ec){
   fin+='<br><br>타고난 그릇은 흐름의 경향일 뿐, 결정과 실행은 본인의 준비로 채울 때 비로소 현실이 됩니다. 명조가 도와주는 만큼, 차이를 만드는 것은 결국 실행으로 쌓은 성과와 사람을 얻는 협업 역량입니다.';
   html+=sec('fin','종합 제언', fin, '전체를 한 문단으로 요약했어요. 타고난 결은 어디까지나 \'경향\'일 뿐, 결국 본인의 준비와 실행이 진짜 결과를 만들어요.', true);
 
-  html+='<div style="margin-top:20px;font-size:12.5px;color:var(--ink-5);line-height:1.6">본문에 <b style="border-bottom:1px dotted var(--blue)">점선 밑줄</b>이 있는 용어는 마우스를 올리거나(모바일은 가볍게 누르면) 바로 뜻풀이가 뜹니다. 더 자세한 풀이는 맨 아래 <b>「용어 풀이」</b> 카드에 모아 두었습니다. 본 풀이는 전통 명리 규칙에 기반한 자동 해석(참고용)이며, 정해진 운명을 단정하지 않습니다. 같은 입력은 항상 같은 결과를 냅니다. 용신·격국 등은 관법에 따라 해석이 달라질 수 있고, 깊은 상담은 전문가를 권합니다.</div>';
+  html+='<div style="margin-top:20px;font-size:12.5px;color:var(--ink-5);line-height:1.6">본문에 <b style="border-bottom:1px dotted var(--accent)">점선 밑줄</b>이 있는 용어는 마우스를 올리거나(모바일은 가볍게 누르면) 바로 뜻풀이가 뜹니다. 더 자세한 풀이는 맨 아래 <b>「용어 풀이」</b> 카드에 모아 두었습니다. 본 풀이는 전통 명리 규칙에 기반한 자동 해석(참고용)이며, 정해진 운명을 단정하지 않습니다. 같은 입력은 항상 같은 결과를 냅니다. 용신·격국 등은 관법에 따라 해석이 달라질 수 있고, 깊은 상담은 전문가를 권합니다.</div>';
   return annotateTerms(html);
 }
 
@@ -1402,14 +1414,16 @@ function doReading(){
     const nmKoCv=(document.getElementById('nameKo').value||'').trim();
     const hjCv=(document.getElementById('hanja').value||'').trim();
     const gz=pillars.map(p=>p.gz?p.gz:'—');
-    document.getElementById('cvTitle').textContent=(nmKoCv?nmKoCv+'님 ':'')+'사주 · 성명 분석';
-    document.getElementById('cvSaju').innerHTML='사주팔자 &nbsp; <b>'+gz.map(kz).join('</b> &nbsp; <b>')+'</b><span style="opacity:.7"> &nbsp;(시·일·월·연)</span><br>일간 <b>'+kz(dayGan)+' · '+E_LABEL[GAN_E[dayGan]]+'</b>';
+    const elHanja={목:'木',화:'火',토:'土',금:'金',수:'水'}[GAN_E[dayGan]]||'';
+    document.getElementById('cvTitle').textContent=(nmKoCv?nmKoCv+'님의 ':'')+'사주';
     const calLabel=(document.getElementById('calType').value==='lunar'?'음력':'양력');
     const yv=+document.getElementById('yy').value, mv=+document.getElementById('mm').value, dv=+document.getElementById('dd').value;
     const noT=document.getElementById('noTime').checked;
     const pad=n=>String(n).padStart(2,'0');
-    let metaStr=(hjCv?hjCv+' · ':'')+calLabel+' '+yv+'.'+pad(mv)+'.'+pad(dv);
-    if(!noT){ metaStr+=' '+pad(+document.getElementById('hh').value||0)+':'+pad(+document.getElementById('mi').value||0); }
+    document.getElementById('cvSub').textContent=calLabel+' '+yv+'.'+pad(mv)+'.'+pad(dv)+' · '+dayGan+elHanja+' 일간';
+    document.getElementById('cvSaju').innerHTML=gz.map(g=>'<b>'+(g==='—'?'—':g)+'</b>').join('');
+    let metaStr=(hjCv?hjCv+' · ':'')+'사주팔자 '+gz.map(g=>g==='—'?'—':g).join(' ')+' (시·일·월·연)';
+    if(!noT){ metaStr+=' · '+pad(+document.getElementById('hh').value||0)+':'+pad(+document.getElementById('mi').value||0); }
     document.getElementById('cvMeta').textContent=metaStr;
   }catch(e){}
 
@@ -1446,7 +1460,7 @@ function doReading(){
       dots+='<text x="'+l[0].toFixed(1)+'" y="'+l[1].toFixed(1)+'" text-anchor="middle" dominant-baseline="middle" font-size="13" font-weight="700" fill="'+(vals[i]===0?'#bbb':OH_HEX[e])+'">'+OH_LB[e]+'</text>';
       dots+='<text x="'+l[0].toFixed(1)+'" y="'+(l[1]+15).toFixed(1)+'" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="600" fill="'+(vals[i]===0?'#bbb':'#545454')+'">'+vals[i]+(vals[i]===0?' 결핍':'')+'</text>';
     });
-    window._ohRadar='<svg viewBox="0 0 280 300" width="100%" style="max-width:300px;display:block;margin:0 auto 10px" role="img" aria-label="오행 분포 레이더 차트">'+grid+axes+'<polygon points="'+dpts+'" fill="rgba(15,128,246,0.13)" stroke="#0F80F6" stroke-width="2" stroke-linejoin="round"/>'+dots+'</svg>';
+    window._ohRadar='<svg viewBox="0 0 280 300" width="100%" style="max-width:300px;display:block;margin:0 auto 10px" role="img" aria-label="오행 분포 레이더 차트">'+grid+axes+'<polygon points="'+dpts+'" fill="rgba(255,122,69,0.15)" stroke="#FF7A45" stroke-width="2" stroke-linejoin="round"/>'+dots+'</svg>';
   })();
   /* 귀여운 오행 원 요약 (부족한 오행은 시무룩한 표정) */
   const OHC={목:['#DFF3E4','#2E8B5B','木'],화:['#FDE3DD','#D6604A','火'],토:['#FBEFD6','#B07D18','土'],금:['#ECECEC','#7A7A7A','金'],수:['#E0EDFB','#2C6CC0','水']};
@@ -1479,9 +1493,12 @@ function doReading(){
   /* 커버 한 줄 비유(buildInterp가 window._tagline에 채움) */
   try{
     const tagEl=document.getElementById('cvTagline');
+    const subEl=document.getElementById('cvTagSub');
     if(tagEl && window._tagline){
-      tagEl.innerHTML='“'+window._tagline.img+'”<span class="cv-tag-sub">한마디로, '+window._tagline.role+'</span>';
-    } else if(tagEl){ tagEl.textContent=''; }
+      tagEl.style.display='';
+      tagEl.innerHTML='<span class="cv-dot"></span>“'+window._tagline.img+'”';
+      if(subEl) subEl.textContent='한마디로, '+window._tagline.role;
+    } else { if(tagEl) tagEl.style.display='none'; if(subEl) subEl.textContent=''; }
   }catch(e){}
 
   /* 발음오행 */

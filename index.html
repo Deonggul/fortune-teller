@@ -101,6 +101,11 @@ body.rmode .back-btn:hover{color:var(--ink);border-color:var(--ink-4);}
 .easy .lbl{font-size:12px;font-weight:700;color:var(--green);margin-bottom:5px;}
 .easy p{font-size:13.5px;color:var(--ink-2);line-height:1.72;margin:0;}
 .easy b{color:var(--ink);font-weight:700;}
+/* 인라인 용어 각주(툴팁) */
+.gl{position:relative;border-bottom:1px dotted var(--blue);cursor:help;}
+.gl .gl-pop{position:absolute;left:0;bottom:calc(100% + 8px);z-index:60;width:min(264px,74vw);background:var(--ink);color:#fff;font-size:12.5px;font-weight:400;line-height:1.55;letter-spacing:0;text-align:left;padding:10px 12px;border-radius:9px;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;visibility:hidden;transition:opacity .12s;pointer-events:none;white-space:normal;}
+.gl .gl-pop::after{content:"";position:absolute;left:16px;top:100%;border:6px solid transparent;border-top-color:var(--ink);}
+.gl:hover .gl-pop,.gl:focus .gl-pop,.gl:focus-within .gl-pop{opacity:1;visibility:visible;}
 
 /* ===== 결과 = NHN 에디토리얼 리포트 톤 ===== */
 /* 흰 카드 박스 제거 → 섹션 라인 + 번호 H2 */
@@ -121,8 +126,10 @@ body.rmode .rterm-sum{font-size:13px!important;color:var(--ink-4)!important;font
 .cover-card{display:none;}
 body.rmode .cover-card{display:block;background:radial-gradient(ellipse 70% 55% at 25% 0%,rgba(15,128,246,.18),transparent 65%),radial-gradient(ellipse 60% 50% at 90% 100%,rgba(235,69,61,.10),transparent 60%),var(--ink);color:#fff;border-radius:16px;padding:42px 36px;margin-bottom:60px;overflow:hidden;}
 .cover-card .cv-eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.62);font-weight:600;margin-bottom:14px;}
-.cover-card .cv-title{font-size:clamp(26px,5.5vw,36px);font-weight:700;line-height:1.22;letter-spacing:-0.02em;margin-bottom:18px;}
-.cover-card .cv-saju{font-size:14px;color:rgba(255,255,255,.86);font-variant-numeric:tabular-nums;line-height:1.8;}
+.cover-card .cv-title{font-size:clamp(26px,5.5vw,36px);font-weight:700;line-height:1.22;letter-spacing:-0.02em;margin-bottom:14px;}
+.cover-card .cv-tagline{font-size:clamp(18px,4vw,24px);font-weight:700;line-height:1.42;color:#fff;margin-bottom:20px;}
+.cover-card .cv-tagline .cv-tag-sub{display:block;font-size:clamp(13px,2.6vw,15px);font-weight:500;color:rgba(255,255,255,.82);margin-top:9px;line-height:1.5;}
+.cover-card .cv-saju{font-size:14px;color:rgba(255,255,255,.86);font-variant-numeric:tabular-nums;line-height:1.8;padding-top:18px;border-top:1px solid rgba(255,255,255,.18);}
 .cover-card .cv-saju b{color:#fff;font-weight:700;}
 .cover-card .cv-meta{margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.18);font-size:12.5px;color:rgba(255,255,255,.66);line-height:1.7;}
 
@@ -322,6 +329,7 @@ body.rmode .scroll-top{display:inline-flex;}
     <div class="cover-card" id="coverCard">
       <div class="cv-eyebrow">Saju &amp; Name Analysis</div>
       <div class="cv-title" id="cvTitle">사주 · 성명 분석</div>
+      <div class="cv-tagline" id="cvTagline"></div>
       <div class="cv-saju" id="cvSaju"></div>
       <div class="cv-meta" id="cvMeta"></div>
     </div>
@@ -364,7 +372,7 @@ body.rmode .scroll-top{display:inline-flex;}
     <div class="card rcard" id="s-term" data-nav="용어 풀이">
       <h2>용어 풀이</h2>
       <details>
-        <summary class="rterm-sum" style="cursor:pointer;font-size:15px;font-weight:700;color:var(--ink);list-style:none">📖 눌러서 펼치기</summary>
+        <summary class="rterm-sum" style="cursor:pointer;font-size:15px;font-weight:700;color:var(--ink);list-style:none">📖 눌러서 펼치기 (본문 점선 밑줄 용어는 마우스를 올리면 바로 뜻이 떠요)</summary>
         <div style="margin-top:14px;font-size:14px;color:var(--ink-2);line-height:1.8">
           <div style="font-weight:700;color:var(--ink);margin-bottom:4px">기본</div>
           <b>일간(日干)</b> — 사주 여덟 글자 중 '나' 자신을 뜻하는 기준 글자.<br>
@@ -595,6 +603,121 @@ const GAEUN={
 /* 십성 평이 해석 (성격·강점) */
 const SIP_PLAIN={'비견':'주관이 뚜렷하고 독립적이며 동료와 어울려 힘을 내는','겁재':'추진력과 승부욕이 강하고 과감한','식신':'느긋하고 표현력이 좋으며 만들고 베풀기를 즐기는','상관':'재능이 많고 영리하지만 틀에 매이기 싫어하고 자기표현이 강한','정재':'성실하고 알뜰하게 꾸준히 모으고 관리하는','편재':'수완이 좋고 활동적이며 기회를 잘 잡는','정관':'책임감 있고 반듯하며 규칙·조직을 잘 지키는','편관':'카리스마와 결단력이 있고 압박 속에서 강해지는','정인':'배우기를 좋아하고 따뜻하며 안정·명분을 중시하는','편인':'독특한 통찰과 전문성이 있고 혼자 깊이 파고드는'};
 const SIP_FIELD={'비견':'독립·전문직·동업','겁재':'경쟁적이고 역동적인 일','식신':'요리·예술·콘텐츠·서비스','상관':'기획·창작·표현하고 말하는 일','정재':'관리·회계·꾸준한 실무','편재':'영업·사업·투자','정관':'공직·대기업·관리직','편관':'리더·위기관리·전문 자격','정인':'학문·연구·교육·자격','편인':'전문 기술·연구·예술·종교'};
+/* 일간 물상(物像) — 한 줄 비유용. img=비유 명사구, role=캐릭터 한 줄 */
+const DAY_IMG={
+  甲:'하늘로 곧게 뻗어 오르는 큰 나무', 乙:'바람에 유연하게 휘는 화초와 넝쿨',
+  丙:'온 세상을 비추는 한낮의 태양',   丁:'어둠을 밝히는 따뜻한 촛불',
+  戊:'묵직하게 자리를 지키는 거대한 산', 己:'온갖 씨앗을 길러내는 기름진 밭',
+  庚:'아직 다듬지 않은 단단한 무쇠와 바위', 辛:'잘 벼려진 보석과 예리한 칼날',
+  壬:'쉼 없이 흐르는 드넓은 강물',     癸:'만물을 적시는 맑은 빗물과 이슬'
+};
+const DAY_ROLE={
+  甲:'큰 그림을 그리며 앞장서는 개척자', 乙:'어디서든 살아남는 끈질긴 생활의 달인',
+  丙:'주변을 환하게 밝히는 분위기 메이커', 丁:'곁을 따뜻하게 데우는 세심한 조력자',
+  戊:'묵묵히 자기 성(城)을 쌓아 올리는 우직한 건축가', 己:'사람과 일을 길러내는 너른 품의 농부',
+  庚:'불의를 못 참는 결단력의 승부사', 辛:'디테일을 벼리는 완벽주의 장인',
+  壬:'멈추지 않고 흐르는 큰 그림의 전략가', 癸:'촉촉이 스며드는 섬세한 감성가'
+};
+/* 결핍(용신) 오행 → 비유에서 \'무엇이 그리운가\' */
+const LACK_IMG={
+  목:'새 숨을 불어넣을 푸른 나무가 그리운', 화:'따뜻한 불씨 하나가 절실한',
+  토:'딛고 설 단단한 땅이 아쉬운',         금:'자신을 벼려 줄 한 자루 연장이 그리운',
+  수:'목을 축일 단비를 기다리는'
+};
+/* 배우자궁(일지 십성) → 관계 스타일 / 이상형 */
+const SPOUSE_STYLE={
+  '정재':'배우자에게 성실하고 알뜰하며 안정적인 가정을 꾸리려는 마음이 큽니다. 화려한 이벤트보다 매일의 약속을 지키는 사람에게 신뢰를 느낍니다.',
+  '편재':'활동적이고 다정하며 인기가 있는 편입니다. 연애에 적극적이지만, 한 사람에게 정착하는 \'결정의 순간\'을 스스로 잘 만드는 것이 관건입니다.',
+  '정관':'책임감 있게 관계를 이끌고, 반듯하고 믿음직한 상대에게 끌립니다. 가정을 지키려는 의지가 강합니다.',
+  '편관':'끌림이 강렬하고 헌신적이지만 관계에 긴장·기복이 따르기도 합니다. 강한 상대에게 끌리되 주도권 다툼은 조심하세요.',
+  '비견':'친구 같은 동등한 관계를 편안해합니다. 다만 \'내 방식\'을 고집하면 부딪히니 서로의 영역을 인정하는 연습이 필요합니다.',
+  '겁재':'정이 깊지만 질투·경쟁심이 관계에 끼어들 수 있습니다. 비교하는 마음을 내려놓을 때 관계가 편안해집니다.',
+  '식신':'표현이 따뜻하고 잘 챙기는 다정한 파트너입니다. 함께 먹고 즐기는 소소한 일상에서 사랑을 확인합니다.',
+  '상관':'감정 표현이 풍부하고 매력적이지만 말이 앞설 때가 있어, 욱하는 한마디를 다스리면 관계가 오래갑니다.',
+  '정인':'배려 깊고 보살피는 스타일이라 상대를 품어 주는 연애를 합니다. 다만 \'엄마·아빠 같은 사랑\'에만 머물지 않도록 균형이 필요합니다.',
+  '편인':'속마음을 잘 드러내지 않는 신비로운 매력이 있지만, 혼자 삭이다 거리감을 만들 수 있어 표현 연습이 도움이 됩니다.'
+};
+const SPOUSE_PREF={
+  '정재':'성실하고 알뜰하며 가정적인, 믿고 기댈 수 있는 사람', '편재':'활기차고 능력 있으며 함께 있으면 즐거운, 매력적인 사람',
+  '정관':'반듯하고 책임감 있으며 사회적으로 안정된 사람',     '편관':'카리스마 있고 강단 있는, 나를 리드해 줄 듯한 사람',
+  '비견':'취향과 가치관이 잘 맞는, 친구처럼 편안한 사람',     '겁재':'솔직하고 화끈한, 함께 부딪히며 성장할 사람',
+  '식신':'다정하고 잘 웃는, 함께 있으면 마음이 편한 사람',     '상관':'센스 있고 표현이 풍부한, 자극이 되는 매력적인 사람',
+  '정인':'따뜻하고 포용력 있는, 나를 이해하고 보살펴 줄 사람', '편인':'독특한 세계관을 가진, 정신적으로 통하는 사람'
+};
+/* 용어 풀이(인라인 각주) — 긴/복합 용어를 앞에 둬 우선 주석 처리 */
+const GLOSSARY=[
+  ['식신제살','들어오는 압박(편관)을 자신의 재능(식신)으로 눌러 다스리는 짜임. 책임이 무거울수록 강해지는 구조.'],
+  ['상관제살','재능(상관)으로 도전·압박을 정면 돌파하는 짜임.'],
+  ['살인상생','압박(칠살)을 인성(배움·문서·인정)으로 받아 명예로 바꾸는 흐름.'],
+  ['식상생재','재능(식상)이 재물(재성)로 이어지는 흐름. 실력으로 돈을 버는 구조.'],
+  ['신왕재약','내 기운은 센데(신왕) 재물 기운은 약한 짜임. 돈을 직접 좇기보다 전문성으로 우회해 벌 때 유리.'],
+  ['배우자궁','사주에서 배우자를 보는 자리(일지, 여덟 글자 중 \'일\'의 아래 글자).'],
+  ['신강','내 기운(일간)이 강한 상태. 주관·추진력이 강점.'],
+  ['신약','내 기운(일간)이 약한 상태. 협력·배움·유연함이 강점.'],
+  ['신왕','신강과 같은 뜻 — 일간의 기운이 왕성한 상태.'],
+  ['일간','사주 여덟 글자 중 \'나\' 자신을 뜻하는 기준 글자.'],
+  ['십이운성','일간이 각 자리에서 갖는 기운의 세기(장생·제왕·묘 등).'],
+  ['지장간','지지(아래 글자) 속에 숨어 있는 천간.'],
+  ['오행','木·火·土·金·水 다섯 기운. 성격·건강·운의 균형을 봅니다.'],
+  ['십성','일간과 다른 글자의 관계로 나누는 열 가지 역할(비견·식신·재성 등).'],
+  ['칠살','편관의 다른 이름 — 나를 거세게 압박하는 기운.'],
+  ['편관','나를 강하게 누르는 기운(칠살). 책임·도전·압박.'],
+  ['정관','나를 다스리는 안정된 기운. 명예·조직·규범.'],
+  ['편재','활동적·사업적 재물 기운. 기회 포착에 강함.'],
+  ['정재','성실하게 모으는 안정적 재물 기운.'],
+  ['편인','독특한 통찰·전문성의 기운. 혼자 깊이 파고듦.'],
+  ['정인','배움·인덕·안정의 기운.'],
+  ['식신','느긋하게 만들고 베푸는 재능의 기운.'],
+  ['상관','영리하고 표현이 강한 재능의 기운.'],
+  ['비겁','비견·겁재를 묶은 말 — 나·동료·경쟁의 기운.'],
+  ['비견','나와 같은 기운 — 주관·독립·동료.'],
+  ['겁재','경쟁·승부욕의 기운.'],
+  ['식상','식신·상관을 묶은 말 — 재능·표현·생산의 기운.'],
+  ['재성','정재·편재를 묶은 말 — 재물·현실 감각의 기운.'],
+  ['관성','정관·편관을 묶은 말 — 직책·책임·압박의 기운.'],
+  ['인성','정인·편인을 묶은 말 — 배움·문서·인정의 기운.'],
+  ['격국','사주 전체의 구도·유형. 그 사람의 큰 그릇.'],
+  ['용신','균형을 잡아주는 \'보약\' 같은 기운. 부족한 것을 채우는 방향.'],
+  ['조후','태어난 계절의 추위·더위를 보완하는 기운.'],
+  ['신살','특정 글자 조합이 만드는 특별한 기운(역마·화개·도화·문창 등).'],
+  ['대운','약 10년 단위로 바뀌는 인생의 큰 흐름.'],
+  ['세운','그 해(1년)의 운.'],
+  ['도화','사람을 끄는 매력·인기의 기운.'],
+  ['역마','이동·여행·변화가 많은 기운.'],
+  ['화개','예술·학문·정신세계에 끌리는 기운.'],
+  ['문창','공부·시험·글에 강한 기운.'],
+  ['득령','태어난 달의 기운이 일간을 돕는 상태(힘을 얻음).'],
+  ['득지','일간이 자기 자리(일지)에서 뿌리를 얻은 상태.'],
+  ['통근','천간이 지지에 같은 오행 뿌리를 둔 것 — 힘의 근거.'],
+  ['육합','지지끼리 어울려 조화·결합하는 관계.'],
+  ['삼합','세 지지가 모여 한 오행으로 힘을 합치는 관계.'],
+  ['반합','삼합의 핵심 두 글자가 모인 것.'],
+  ['원진','서로 은근히 거슬리는 미움·신경전의 관계.'],
+  ['도식','인성이 식신을 눌러 의욕·활동이 한풀 꺾이는 것.'],
+  ['발음오행','이름 소리(초성)가 가진 오행.'],
+  ['자원오행','한자의 부수·뜻이 가진 오행.'],
+  ['묘고','특정 기운을 가둬 두는 창고 역할의 지지(辰·戌·丑·未).']
+];
+/* 본문 HTML에서 각 용어의 첫 등장만 인라인 각주(툴팁)로 감싼다. 태그/속성·이미 감싼 부분은 건드리지 않음. */
+function annotateTerms(html){
+  const segs=[];
+  html.split(/(<[^>]*>)/).forEach((s,i)=>{ if(s==='') return; segs.push({k:(i%2?'tag':'text'), s}); });
+  for(const pair of GLOSSARY){
+    const term=pair[0], def=pair[1].replace(/</g,'&lt;').replace(/"/g,'&quot;');
+    for(let i=0;i<segs.length;i++){
+      if(segs[i].k!=='text') continue;
+      const idx=segs[i].s.indexOf(term);
+      if(idx<0) continue;
+      const before=segs[i].s.slice(0,idx), after=segs[i].s.slice(idx+term.length);
+      segs.splice(i,1,
+        {k:'text',s:before},
+        {k:'froz',s:'<span class="gl" tabindex="0">'+term+'<span class="gl-pop">'+def+'</span></span>'},
+        {k:'text',s:after});
+      break;
+    }
+  }
+  return segs.map(x=>x.s).join('');
+}
 /* 조후(調候) — 일간 오행 + 계절로 본 한난조습 보약 천간 */
 function johuHint(dayGan, monthZ){
   const de=GAN_E[dayGan], sea=SEASON[monthZ];
@@ -711,7 +834,19 @@ function buildInterp(pillars, dayGan, cnt, ec){
   else if((hasS('정재')||hasS('편재'))&&hasS('정관')) 격='재생관(財生官) — 실리가 명예로 이어지는';
   else if(sipSorted[0]) 격=sipSorted[0]+' 중심의';
   const seasonName=SEASON[monthZ];
-  let coreSummary='일간은 '+dm[0].split(' · ')[1]+'에 비유되는 <b>'+kz(dayGan)+' · '+E_LABEL[dayE]+'</b>입니다. '
+  /* 한 줄 비유(물상) — 결핍/신강약 + 일간 물상 + 격국 캐릭터. 커버·요약에 노출 */
+  (function(){
+    const di=DAY_IMG[dayGan]||'고유한 결을 지닌 사람';
+    const want=lacks.length?(LACK_IMG[lacks[0]]||'균형을 향해 가는'):(strong?'이미 단단히 여문':'좋은 인연을 기다리는');
+    const img=want+' '+di;
+    const gdesc=(격&&격.indexOf('—')>=0)?격.split('—')[1].trim():'';
+    const role=(gdesc?gdesc+', ':'')+(DAY_ROLE[dayGan]||'자기 길을 묵묵히 걷는 사람');
+    window._tagline={img:img, role:role};
+  })();
+  const _tag=window._tagline;
+  let coreSummary='<div style="font-size:18px;font-weight:700;color:var(--ink);line-height:1.45;margin-bottom:8px">“'+_tag.img+'”</div>'
+    +'<div style="color:var(--ink-2);margin-bottom:16px">한마디로, <b>'+_tag.role+'</b>입니다.</div>'
+    +'일간은 '+dm[0].split(' · ')[1]+'에 비유되는 <b>'+kz(dayGan)+' · '+E_LABEL[dayE]+'</b>입니다. '
     +seasonName+'('+monthZ+'月)에 태어나 '
     +(strong?'뿌리가 단단해 <b>신강(身旺)</b>하며, ':'기운이 분산되어 <b>신약(身弱)</b>한 편이며, ')
     +(격?'자신의 기운으로 '+(격.split(' — ')[1]||'')+' <b>'+격.split(' — ')[0]+'</b> 구도가 두드러집니다. ':'');
@@ -835,21 +970,73 @@ function buildInterp(pillars, dayGan, cnt, ec){
   const easyPer='타고난 성격을 한마디로 하면 '+(pt.length?'<b>'+pt.join('</b>, <b>')+'</b> 편이에요. ':'균형 잡힌 편이에요. ')+'다만 사람은 환경과 노력으로 얼마든지 달라지니, 정답이 아니라 \'타고난 경향\'으로만 봐 주세요.';
   html+=sec('per','성격과 기질', per, easyPer);
 
-  /* 7. 재물·관계·건강 */
-  const bigeop = (sip['비견']||0)+(sip['겁재']||0);
-  const jaeseong = (sip['정재']||0)+(sip['편재']||0);
-  let money='';
-  if((hasS('식신')||hasS('상관'))&&jaeseong>0) money='식상생재 구조라 큰 횡재보다 전문성·기획으로 꾸준히 쌓는 자수성가형입니다. ';
-  else if(jaeseong>0) money='재성이 있어 현실 재물 감각이 또렷합니다. ';
-  else money='재성이 약해 한 번의 큰 재물보다 꾸준함·전문성으로 쌓는 흐름입니다. ';
-  if(hasS('정재')) money+='정재가 있어 알뜰하고 안정적인 고정수입에 강합니다. ';
-  if(hasS('편재')) money+='편재가 있어 활동적·사업적 재물과 기회 포착에 강합니다. ';
-  if(bigeop>=2) money+='다만 비겁이 강해 동업·공동투자에서는 재물이 분산되기 쉬우니, 지분과 역할을 분명히 하는 편이 안전합니다.';
+  /* 7. 핵심 관심 분야 — 재물 · 연애/결혼 · 직장/이직 · 건강 (상세) */
+  const bigeop = cBigeop;
+  const jaeseong = cJae;
   const spouseSip=sipsin(dayGan, ZHI_MAIN[dayZ]);
-  let rel='배우자궁(일지)에 <b>'+spouseSip+' '+dayZ+'</b>가 자리합니다. '
-    +((spouseSip==='정재'||spouseSip==='정관')?'안정적인 배우자 인연을 뜻하는 무난한 배치입니다. ':(spouseSip==='편재'||spouseSip==='편관')?'활동적이고 개성 있는 인연의 색이 있습니다. ':'배우자궁의 기운을 잘 살피면 좋습니다. ');
-  if(bigeop>=2) rel+='비겁이 강해 동료·친구 인연이 넓고 의리도 깊되 경쟁·비교가 따릅니다. ';
-  if(cnt[inElem]===0) rel+='인성이 약해 윗사람·멘토 인복은 다소 아쉬울 수 있으나, 인성(火/해당 오행)이 드는 운에 보강됩니다.';
+  const hasDohwaN = ss.some(s=>/도화/.test(s[0]));
+  const hasYeokmaN = ss.some(s=>/역마/.test(s[0]));
+  const isMaleN=(function(){try{return (document.getElementById('gender').value||'M')!=='F';}catch(e){return true;}})();
+
+  /* --- 7-1. 재물운 --- */
+  let money='';
+  if((hasS('식신')||hasS('상관'))&&jaeseong>0) money+='<b>전문성·재능이 곧 돈이 되는 자수성가형</b>입니다. 식상생재 — 가진 능력으로 가치를 만들고 그 가치가 수입으로 이어지는 구조라, 한 방의 대박보다 실력을 쌓을수록 통장이 두꺼워집니다. ';
+  else if(jaeseong>0) money+='<b>현실 감각이 또렷한 실리형</b>입니다. 돈의 흐름을 읽고 기회를 챙기는 눈이 있어, 들고 나는 돈을 야무지게 관리합니다. ';
+  else money+='재성(직접적인 재물 기운)이 약해 <b>한 번의 큰돈보다 꾸준함으로 쌓아가는 형</b>입니다. 눈앞의 욕심을 좇기보다, 실력·신용·사람이라는 \'보이지 않는 자산\'을 불릴 때 결국 현금도 따라옵니다. ';
+  if(hasS('정재')) money+='<br><br><b>정재형</b> — 알뜰하고 안정적인 고정수입에 강합니다. 매달 들어오는 월급·임대·연금처럼 \'예측 가능한 돈\'을 차곡차곡 모아 키우는 데 재능이 있어, 무리한 베팅보다 적금·우량자산 장기 보유가 체질에 맞습니다. ';
+  if(hasS('편재')) money+='<br><br><b>편재형</b> — 활동적이고 사업적인 재물 기운입니다. 여러 곳에 돈을 굴리고 기회를 포착하는 수완이 있어 영업·사업·투자에서 빛나지만, 크게 벌고 크게 쓰는 진폭이 커 \'들어올 때 일부를 떼어 두는\' 습관이 평생의 안전벨트입니다. ';
+  if(sinwangJaeyak) money+='<br><br>다만 <b>신왕재약</b> — 내 힘은 센데 돈을 끌어오는 기운은 상대적으로 약한 짜임이라, 돈을 정면으로 좇으면 오히려 달아납니다. 비겁(나·동료)과 돈이 직접 부딪히는 구조이기 때문인데, 식상(전문성·콘텐츠·기술)을 한 단계 거쳐 \'간접적으로\' 벌 때 가장 크고 안정적으로 쌓입니다. ';
+  if(bigeop>=2) money+='<br><br><b>지갑 관리 포인트</b> — 비겁이 강해 사람 인연은 넓지만 그만큼 돈이 새는 길도 많습니다. 동업·공동투자·보증·금전대차에서 손실이 나기 쉬우니, \'지분과 역할, 돈의 출구를 처음부터 문서로\' 못 박아 두세요. 인정에 끌려 빌려준 돈은 돌려받기 어렵다고 보는 편이 마음 편합니다. ';
+  money+='<br><br><b>상황별로 보면</b><br>'
+    +'· <b>저축 vs 투자</b> — '+((hasS('편재')||hasS('상관'))?'기회를 보면 움직이고 싶은 기질이라, 전액을 굴리기보다 \'잃어도 되는 돈\'의 범위를 먼저 정해 두는 규칙이 수익률보다 중요합니다.':'안정 지향이라 분산·장기·정액적립이 잘 맞습니다. 단기 급등주·레버리지처럼 심장이 뛰는 투자는 체질에 맞지 않아 오래가지 못합니다.')+'<br>'
+    +'· <b>목돈이 모이는 길</b> — '+((hasS('식신')||hasS('상관'))?'본업 외에 재능을 파는 부업·콘텐츠·프리랜스가 의외의 현금흐름을 만들어 줍니다.':'씀씀이를 한 단계 줄이고 고정지출을 점검하는 \'새는 돈 막기\'가 버는 것보다 빠른 길입니다.')+'<br>'
+    +'· <b>큰 지출·계약</b> — 부동산·자동차·목돈 계약은 '+(strong?'스스로 밀어붙이는 편이라, 한 박자 늦춰 객관적인 의견을 한 번 더 듣는 절차가 실수를 줄여 줍니다.':'주변 말에 휘둘리기 쉬우니, 판단 기준을 미리 적어 두고 그 기준으로만 결정하세요.');
+  html+=sec('money','재물운 — 돈이 들어오고 쌓이는 결', money,
+    '돈을 \'어떻게 벌고 지키느냐\'의 타고난 경향이에요. '+((hasS('식신')||hasS('상관'))?'당신은 실력·재능을 통해 버는 길이 가장 크고 안정적이에요.':'당신은 한 방보다 꾸준함이 통장을 채우는 타입이에요.')+' 정해진 부(富)가 아니라 \'이런 방식이 잘 맞는다\'는 안내로 보세요.');
+
+  /* --- 7-2. 연애·결혼운 --- */
+  const spouseStarName=isMaleN?'재성(財)':'관성(官)';
+  const spouseCnt=isMaleN?cJae:cGwan;
+  let love='연애·결혼에서 가장 먼저 보는 자리는 <b>배우자궁(일지)</b>이에요. 당신은 그 자리에 <b>'+spouseSip+'('+kz(dayZ)+')</b>가 놓여 있습니다. ';
+  love+=(SPOUSE_STYLE[spouseSip]||'배우자궁의 기운을 잘 살피면 좋습니다.')+' ';
+  love+='<br><br><b>인연의 결</b> — ';
+  if(spouseCnt===0) love+='사주 천간·지지에 배우자를 뜻하는 <b>'+spouseStarName+'</b>이 또렷이 드러나 있지 않습니다. 인연이 \'없다\'는 뜻이 결코 아니라, 눈에 띄게 다가오기보다 <b>일·일상 속에서 자연스레 스며들 듯</b> 만나는 경우가 많다는 뜻이에요. 조건을 따지며 찾기보다 오래 곁에 둘 사람을 알아보는 안목이 인연을 결정합니다. ';
+  else if(spouseCnt>=3) love+='<b>'+spouseStarName+'</b>(인연)이 여럿이라 이성 인연·기회가 많은 편입니다. 그만큼 \'한 사람\'을 정하는 결단과, 마음이 흔들릴 때 중심을 잡는 힘이 행복을 좌우합니다. ';
+  else love+='<b>'+spouseStarName+'</b>이 적절히 자리해, 때가 되면 인연이 무리 없이 이어지는 무난한 흐름입니다. ';
+  if(hasDohwaN) love+='또 <b>도화(桃花)</b>의 기운이 있어 사람을 끄는 매력·인기가 있습니다. 가만히 있어도 호감을 사는 힘이라 잘 살리면 인복이 되지만, 가벼운 인연에 휘둘리지 않는 절제가 함께 가야 합니다. ';
+  if(bigeop>=3) love+='<br><br>비겁이 강해 \'내 사람\'을 두고 경쟁 구도가 생기기 쉽습니다. 인연에서도 라이벌이 나타나는 그림이라, 관계 초반의 신뢰 관리와 솔직한 대화가 중요합니다. ';
+  love+='<br><br><b>상황별로 보면</b><br>'
+    +'· <b>미혼이라면</b> — '+(spouseCnt===0?'소개·우연보다 \'함께 일하거나 자주 마주치는\' 환경에서 인연이 깊어집니다. 첫인상보다 두세 번 겪어 본 뒤의 신뢰가 당신에게 맞는 연애 방식이에요.':'호감이 생기면 '+(strong?'직진하는 편이지만, 상대의 속도를 한 번 살피는 여유':'망설이다 기회를 놓치기 쉬우니 반 박자 먼저 표현하는 용기')+'가 인연을 살립니다.')+'<br>'
+    +'· <b>끌리는 상대</b> — '+(SPOUSE_PREF[spouseSip]||'서로의 결을 존중해 주는 사람')+'에게 끌립니다.<br>'
+    +'· <b>기혼이라면</b> — '+((spouseSip==='편관'||spouseSip==='상관'||spouseSip==='겁재')?'관계에 긴장이 생기기 쉬운 배치라, 감정이 격해질 때 \'한 박자 멈춤\'이 가장 큰 약입니다. 작은 표현과 고마움의 말이 큰 다툼을 막아 줍니다.':'안정적인 배치이나, 익숙함이 무심함이 되지 않도록 작은 기념일·표현을 챙기면 관계가 오래 따뜻합니다.')+'<br>'
+    +'· <b>좋은 시기</b> — '+spouseStarName+' 기운이나 일지와 어울리는 합(合)의 기운이 들어오는 해·달에 인연·진전의 계기가 잦습니다. (구체 시기는 아래 「올해의 운세」·「월별 운세」에서 확인하세요.)<br>'
+    +'· <b>표현 방식</b> — '+((hasS('식신')||hasS('상관'))?'감정 표현이 자연스러운 편이라 마음이 잘 전달됩니다. 다만 말이 앞서 상처 주지 않도록 한 번 거르는 여유면 충분해요.':'속으로 아끼는 편이라 \'표현하지 않으면 모른다\'는 점을 기억하세요. 따뜻한 말 한마디가 당신에겐 가장 어렵고도 효과적인 사랑의 기술입니다.');
+  html+=sec('love','연애 · 결혼운 — 인연의 결과 만남의 방식', love,
+    '누구를 어떻게 만나고 어떤 관계를 맺는지의 \'타고난 결\'이에요. 배우자 자리에 <b>'+spouseSip+'</b>가 있어 '+(SPOUSE_PREF[spouseSip]?SPOUSE_PREF[spouseSip].replace(/ 사람$/,'')+' 사람에게 끌리는 편이에요. ':'')+'정해진 인연이 아니라 \'이런 방식이 잘 맞는다\'는 참고로 보세요.');
+
+  /* --- 7-3. 직장·천직·이직운 --- */
+  let career='<b>타고난 일의 결</b> — ';
+  if(격&&격.indexOf('식신제살')>=0) career+='들어오는 압박·책임을 자기 실력으로 눌러 다스리는 <b>식신제살</b>의 구조라, 책임이 무거울수록 진가가 드러납니다. 전문 자격·기술직, 위기를 관리하는 자리, 사람과 조직을 다루는 관리직에서 빛납니다. ';
+  else if(cGwan>=2) career+='관성(직책·책임)이 강해 <b>조직 안에서 인정받는 결</b>입니다. 규범과 위계가 분명한 곳 — 공직·대기업·공공기관·자격 기반 직종에서 안정감을 느끼고 성장합니다. ';
+  else if(cSiksang>=2) career+='식상(재능·표현)이 강해 <b>자기 색깔을 펼치는 결</b>입니다. 기획·창작·콘텐츠·교육·서비스처럼 \'만들고 표현하는\' 일, 또는 전문성을 무기로 한 1인 사업·프리랜스가 잘 맞습니다. ';
+  else if(cJae>=2) career+='재성(실리·수완)이 강해 <b>현장에서 성과로 말하는 결</b>입니다. 영업·사업·유통·투자처럼 숫자와 결과가 분명한 일에서 동기와 보람을 느낍니다. ';
+  else if(cIn>=2) career+='인성(배움·문서)이 강해 <b>지식과 자격으로 승부하는 결</b>입니다. 연구·교육·의료·법률·행정처럼 깊이 파고들어 전문성을 쌓는 분야가 잘 맞습니다. ';
+  else career+='특정 기운에 치우치지 않아 <b>두루 적응하는 균형형</b>입니다. 한 분야의 전문성을 정해 깊이 파면 그것이 곧 무기가 됩니다. ';
+  if(sipSorted[0]) career+='타고난 으뜸 기운(<b>'+sipSorted[0]+'</b>)으로 보면 <b>'+SIP_FIELD[sipSorted[0]]+'</b> 계열이 특히 잘 맞습니다. ';
+  career+='<br><br><b>조직형 vs 독립형</b> — ';
+  if(cGwan>=2&&cSiksang<cGwan) career+='규칙과 위계가 분명한 <b>조직</b>이 잘 맞습니다. 울타리 안에서 책임을 맡을 때 안정적으로 성장하니, 잦은 이직보다 한 곳에서 신뢰를 쌓는 편이 유리합니다. ';
+  else if(cSiksang>=2&&cSiksang>=cGwan) career+='틀에 갇히면 답답해하는 <b>독립·전문가형</b>입니다. 재량이 보장되는 자리, 또는 실력으로 홀로 서는 길에서 만족도가 높습니다. 다만 안정적 기반을 먼저 다진 뒤 독립하는 순서가 중요합니다. ';
+  else career+='조직과 독립 어느 쪽도 가능하나, 직책·권한이 분명할수록 힘이 납니다. ';
+  if(hasYeokmaN) career+='<br><br><b>역마</b>의 기운이 있어 한자리에 머무는 일보다 이동·출장·해외·영업처럼 <b>무대가 바뀌는 일</b>에서 활력이 솟습니다. 원격·글로벌 환경과도 인연이 좋습니다. ';
+  career+='<br><br><b>상황별로 보면</b><br>'
+    +'· <b>이직을 고민한다면</b> — 연봉 숫자만 보지 말고 \'무엇을 배우고 어디로 성장하는가\'를 기준에 두세요. '+(hasYeokmaN?'역마가 있어 옮길수록 길이 열리는 편이지만, 충분히 알아본 뒤 결정한다는 원칙은 지키세요.':'잦은 이동보다 한 곳에서 전문성을 깊이 쌓을 때 몸값이 오릅니다.')+'<br>'
+    +'· <b>창업·독립 적성</b> — '+((cSiksang>=2||hasS('편재'))?'스스로 판을 짜는 데 강점이 있어 독립이 어울리지만, 현금흐름이 안정될 때까지는 본업과 병행하는 안전장치를 두세요.':'기반을 갖춘 조직에서 힘을 받는 편이라, 창업은 충분한 준비와 동료·자본의 뒷받침이 있을 때 신중히 결정하세요.')+'<br>'
+    +'· <b>승진·인정</b> — '+(cGwan>=1?'책임을 마다하지 않을수록 평가가 따릅니다. \'이 사람 없으면 안 된다\'는 인상을 한 번 확실히 남기는 것이 도약의 발판입니다.':'묵묵한 성실함이 강점이니, 성과를 \'보이게\' 정리해 알리는 노력만 더하면 인정이 뒤따릅니다.')+'<br>'
+    +'· <b>동업이라면</b> — '+(bigeop>=2?'비겁이 강해 동업에서 주도권·지분 다툼이 생기기 쉽습니다. 역할과 책임, 돈의 분배를 처음부터 문서로 명확히 하세요.':'협업 자체는 무난하나, 의사결정 권한만큼은 분명히 정해 두는 편이 좋습니다.');
+  html+=sec('career','직장 · 천직 · 이직운 — 어떤 일에서 빛나는가', career,
+    '\'어떤 일·환경에서 잘 풀리는가\'를 본 거예요. '+(sipSorted[0]?'타고난 으뜸 기운으로는 <b>'+SIP_FIELD[sipSorted[0]]+'</b> 쪽이 잘 맞아요. ':'')+'직업은 노력으로 얼마든지 개척하니, 정답이 아니라 \'결이 맞는 방향\'으로 참고하세요.');
+
+  /* --- 7-4. 건강 경향 --- */
   let health='오행으로 보면 ';
   if(lacks.length) health+='<b>'+E_LABEL[lacks[0]]+' 결핍</b> 시 '+ELEM_HEALTH[lacks[0]]+' 계통에 ';
   if(overs.length) health+=(lacks.length?'유의가, ':'')+'<b>'+E_LABEL[overs[0]]+' 과다</b>는 '+ELEM_HEALTH[overs[0]]+' 계통에 ';
@@ -857,8 +1044,25 @@ function buildInterp(pillars, dayGan, cnt, ec){
   if(cnt['화']===0 && (cnt['수']+cnt['금'])>=2) health+='화(火)가 없고 수·금이 받쳐 전체적으로 <b>차고 건조한 명조</b> 경향이라, 몸을 따뜻하게 하고(온기·유산소·햇볕) 규칙적으로 쉬는 것이 보약입니다. ';
   else if(cnt['수']===0 && (cnt['화']+cnt['토'])>=3) health+='수(水)가 없고 화·토가 강해 <b>덥고 건조한 명조</b> 경향이라, 수분·휴식·열 식히기가 도움이 됩니다. ';
   health+='부족한 기운을 보완하는 생활 습관(보완 오행 방위·색·활동)이 도움이 됩니다.';
-  html+=sec('life','재물 · 관계 · 건강', '<b>재물운</b><br>'+money+'<br><br><b>관계·가정</b><br>'+rel+'<br><br><b>건강 경향</b><br>'+health+note('건강 항목은 전통 오행의 신체 대응에 따른 일반적 경향일 뿐 의학적 진단이 아닙니다. 증상이 있으면 전문의의 진료를 받으세요.'),
-    '돈·사람·몸에 대한 큰 \'경향\'이에요. 정해진 운명이 아니라 \'이런 흐름이 있으니 참고하라\'는 뜻으로 보세요. 건강은 의학 진단이 아니에요.', true);
+  html+=sec('health','건강 경향', health+note('건강 항목은 전통 오행의 신체 대응에 따른 일반적 경향일 뿐 의학적 진단이 아닙니다. 증상이 있으면 반드시 전문의의 진료를 받으세요.'),
+    '몸의 큰 \'경향\'일 뿐, 의학적 진단이 절대 아니에요. 불편한 곳이 있으면 사주가 아니라 병원에서 확인하세요.');
+
+  /* --- 7-5. 개운법 (용신 기준, 한 곳에 정리 — 운세별 반복 제거) --- */
+  const yongMain = lacks.length? lacks[0] : yongElem;
+  const Gm = GAEUN[yongMain]||GAEUN['토'];
+  const guin=[];
+  if(YUKHAP[dayZ] && ZHI_ANIMAL[YUKHAP[dayZ]]) guin.push(ZHI_ANIMAL[YUKHAP[dayZ]]);
+  Object.keys(SANHAP).forEach(e=>{ if(SANHAP[e].indexOf(dayZ)>=0) SANHAP[e].forEach(z=>{ if(z!==dayZ && ZHI_ANIMAL[z] && guin.indexOf(ZHI_ANIMAL[z])<0) guin.push(ZHI_ANIMAL[z]); }); });
+  let gaeunSec='당신에게 가장 도움이 되는 기운은 <b>'+E_LABEL[yongMain]+'</b>입니다. 그 기운을 일상에서 채우는 구체적인 방법을 한 곳에 모았어요. (운세 곳곳에서 같은 말을 반복하지 않고 여기로 모았습니다.)<br><br>'
+    +'· <b>색</b> — '+Gm.color+' 계열을 옷·소지품·공간에 가까이 두세요.<br>'
+    +'· <b>방위</b> — <b>'+(GAEUN_DIR[yongMain]||'중앙')+'</b> 방향이 이롭습니다. '+Gm.dirTip+'.<br>'
+    +'· <b>소품·환경</b> — '+ELEM_ITEM[yongMain]+'을(를) 곁에 두면 기운이 살아납니다.<br>'
+    +'· <b>여행·나들이</b> — '+Gm.travel+' 방면이 재충전에 좋아요.<br>'
+    +(guin.length?'· <b>귀인(잘 맞는 띠)</b> — <b>'+guin.join('·')+'띠</b>와 호흡이 잘 맞아, 힘들 때 의외의 도움을 주는 인연이 되곤 합니다.<br>':'')
+    +(lacks.length&&ELEM_HEALTH[lacks[0]]?'· <b>몸 관리</b> — 부족한 '+E_LABEL[lacks[0]]+'과 연결된 '+ELEM_HEALTH[lacks[0]]+' 계통을 평소 따뜻하게 살피면 좋습니다.':'');
+  gaeunSec+=note('개운법은 부족한 기운 쪽으로 생활을 살짝 기울여 균형을 맞추는 생활 습관일 뿐, 효과를 보장하거나 길흉을 단정하지 않습니다. 가벼운 참고로만 활용하세요.');
+  html+=sec('gaeun','개운법 — 부족한 기운을 채우는 법', gaeunSec,
+    '운을 \'끌어올린다\'기보다, 비어 있는 기운 쪽으로 생활을 살짝 기울여 균형을 맞추는 거예요. 부담 없이 할 수 있는 것부터 골라 해보세요.');
 
   /* 8. 성명 통합 */
   try{
@@ -961,12 +1165,10 @@ function buildInterp(pillars, dayGan, cnt, ec){
     const sikje=hasS('식신')&&hasS('편관');
     const isMale=(function(){try{return (document.getElementById('gender').value||'M')!=='F';}catch(e){return true;}})();
     const yong=lacks.length?lacks[0]:yongElem;
-    const G=GAEUN[yong]||GAEUN['토'];
     const gDir=GAEUN_DIR[yong]||'중앙';
     const natalJae=cJae>0, natalGwan=cGwan>0, natalIn=cIn>0, natalSik=cSiksang>0;
     const jaeInDayZ=dayZsip.indexOf('재')>=0;
     const elemHealth=(lacks.length&&ELEM_HEALTH[lacks[0]])?ELEM_HEALTH[lacks[0]]:'';
-    const gaeun='<span style="color:var(--ink-4)">개운 팁 — '+G.wear+', '+G.place+' 부족한 '+E_LABEL[yong]+' 기운을 채우는 데 도움이 됩니다. '+G.dirTip+'.</span>';
     function dom(head,arr){ return '<div style="margin-top:20px"><div style="font-weight:700;color:var(--ink);font-size:15.5px;margin-bottom:7px">'+head+'</div><div style="font-size:14.5px;color:var(--ink-2);line-height:1.85">'+arr.filter(Boolean).join(' ')+'</div></div>'; }
     let DOM='';
     /* 재물 */
@@ -979,8 +1181,7 @@ function buildInterp(pillars, dayGan, cnt, ec){
         (jaeInDayZ?'사주 원국을 보면 하루의 뿌리 자리(일지)에 <b>'+dayZsip+'</b>가 놓여, 본디 한 푼 두 푼 성실히 모아 자산을 키우는 재물 그릇입니다.':(natalSik&&natalJae?'원국에서 재능(식상)이 돈(재성)을 생하는 구조라, 재능이 곧 수입으로 이어지는 자수성가형입니다.':'')),
         sikY?'재능과 활동이 곧 수입으로 이어지는 길도 함께 열려 있어, 부업·콘텐츠·영업 쪽 성과가 기대됩니다.':'',
         '올해는 한 번에 크게 버는 그림보다, 가치가 오래 남는 곳 — 자격·문서·실력·사람 — 에 씨를 뿌려두는 전략이 가장 잘 맞습니다.',
-        (chung && jaeInDayZ)?'다만 잔잔한 호수에 큰 돌이 떨어진 듯, 고정 수입·거처와 얽힌 금전에 갑작스런 변동이 생길 수 있습니다. 큰 계약·이사·목돈 지출은 한 박자 늦춰 점검하세요.':'',
-        gaeun
+        (chung && jaeInDayZ)?'다만 잔잔한 호수에 큰 돌이 떨어진 듯, 고정 수입·거처와 얽힌 금전에 갑작스런 변동이 생길 수 있습니다. 큰 계약·이사·목돈 지출은 한 박자 늦춰 점검하세요.':''
       ]);
     /* 직업·승진 */
     DOM+=dom(
@@ -1071,10 +1272,9 @@ function buildInterp(pillars, dayGan, cnt, ec){
       else if(!boostm) body+='큰 충돌 없이 무난히 흐르니, 평소 페이스대로 꾸준히 밀고 나가기 좋습니다. ';
       const FOCUS={'비견':'협업·금전 관리','겁재':'지출 관리·과욕 자제','식신':'아이디어·표현·부업','상관':'재능 발휘·말조심','정재':'재테크·실속 챙기기','편재':'기회 포착·인맥','정관':'직장·평가·책임','편관':'중압 관리·체력','정인':'공부·문서·휴식','편인':'재충전·전문성'};
       body+='이 달은 특히 <b>'+(FOCUS[mgs]||'기본기')+'</b> 쪽에 마음을 쓰면 흐름을 살리기 좋습니다. ';
-      /* 개운법 + 여행/귀인 */
+      /* 달마다 달라지는 귀인 띠만 표시 (색·방향 등 고정 개운법은 「개운법」 섹션으로 일원화) */
       const hapAnimal=ZHI_ANIMAL[YUKHAP[mz]]||'';
-      const G2=GAEUN[yong2]||GAEUN['토'];
-      body+='<span style="color:var(--ink-4)">개운 — '+G2.color+' 계열을 가까이하면 기운이 살아납니다. '+G2.dirShort+'. 여행은 '+G2.travel+'이 좋고, '+(hapAnimal?'<b>'+hapAnimal+'띠</b> 인연이나 ':'')+'마음 맞는 사람이 힘이 되어 줍니다.</span>';
+      if(hapAnimal) body+='<span style="color:var(--ink-4)">이 달은 <b>'+hapAnimal+'띠</b>와 호흡이 잘 맞아, 마음 맞는 사람의 도움이 힘이 됩니다.</span>';
       const dot=relTone==='warn'?'var(--orange)':relTone==='good'?'var(--green)':(boostm?'var(--green)':'var(--ink-5)');
       blocks+='<div style="padding:16px 0;border-top:1px solid var(--line-softer)">'
         +'<div style="display:flex;align-items:center;gap:9px;margin-bottom:6px">'
@@ -1097,8 +1297,8 @@ function buildInterp(pillars, dayGan, cnt, ec){
   fin+='<br><br>타고난 그릇은 흐름의 경향일 뿐, 결정과 실행은 본인의 준비로 채울 때 비로소 현실이 됩니다. 명조가 도와주는 만큼, 차이를 만드는 것은 결국 실행으로 쌓은 성과와 사람을 얻는 협업 역량입니다.';
   html+=sec('fin','종합 제언', fin, '전체를 한 문단으로 요약했어요. 타고난 결은 어디까지나 \'경향\'일 뿐, 결국 본인의 준비와 실행이 진짜 결과를 만들어요.', true);
 
-  html+='<div style="margin-top:20px;font-size:12.5px;color:var(--ink-5);line-height:1.6">어려운 용어는 맨 아래 <b>「용어 풀이」</b> 카드를 펼쳐 쉽게 확인할 수 있습니다. 본 풀이는 전통 명리 규칙에 기반한 자동 해석(참고용)이며, 정해진 운명을 단정하지 않습니다. 같은 입력은 항상 같은 결과를 냅니다. 용신·격국 등은 관법에 따라 해석이 달라질 수 있고, 깊은 상담은 전문가를 권합니다.</div>';
-  return html;
+  html+='<div style="margin-top:20px;font-size:12.5px;color:var(--ink-5);line-height:1.6">본문에 <b style="border-bottom:1px dotted var(--blue)">점선 밑줄</b>이 있는 용어는 마우스를 올리거나(모바일은 가볍게 누르면) 바로 뜻풀이가 뜹니다. 더 자세한 풀이는 맨 아래 <b>「용어 풀이」</b> 카드에 모아 두었습니다. 본 풀이는 전통 명리 규칙에 기반한 자동 해석(참고용)이며, 정해진 운명을 단정하지 않습니다. 같은 입력은 항상 같은 결과를 냅니다. 용신·격국 등은 관법에 따라 해석이 달라질 수 있고, 깊은 상담은 전문가를 권합니다.</div>';
+  return annotateTerms(html);
 }
 
 document.getElementById('trueSolar').addEventListener('change',function(){
@@ -1248,6 +1448,14 @@ function doReading(){
     document.getElementById('interpCard').style.display='block';
   }catch(e){ document.getElementById('interpCard').style.display='none'; }
 
+  /* 커버 한 줄 비유(buildInterp가 window._tagline에 채움) */
+  try{
+    const tagEl=document.getElementById('cvTagline');
+    if(tagEl && window._tagline){
+      tagEl.innerHTML='“'+window._tagline.img+'”<span class="cv-tag-sub">한마디로, '+window._tagline.role+'</span>';
+    } else if(tagEl){ tagEl.textContent=''; }
+  }catch(e){}
+
   /* 발음오행 */
   const nm=document.getElementById('nameKo').value.replace(/\s/g,'');
   const balchain=document.getElementById('balchain'), balnote=document.getElementById('balnote');
@@ -1386,7 +1594,7 @@ function doReading(){
 
   /* PART 구성 — 섹션 id를 PART로 묶음 */
   const PARTS=[
-    {label:'PART I',   title:'사주 분석',   ids:['s-saju','s-ohaeng','i-sum','i-balance','i-gj','i-sip','i-jz','i-per','i-life']},
+    {label:'PART I',   title:'사주 분석',   ids:['s-saju','s-ohaeng','i-sum','i-balance','i-gj','i-sip','i-jz','i-per','i-money','i-love','i-career','i-health','i-gaeun']},
     {label:'PART II',  title:'성명학 분석', ids:['s-name','hanjaCard','suriCard','i-nameu']},
     {label:'PART III', title:'2026 운세',  ids:['i-seun','i-wol']},
     {label:'PART IV',  title:'흐름과 제언', ids:['i-daeun','i-fin']},
